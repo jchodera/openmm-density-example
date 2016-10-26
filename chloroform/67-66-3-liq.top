@@ -1,0 +1,8 @@
+; Include SPC water topology
+#include "trichloromethane.itp"
+
+[ system ]
+chloroform
+
+[ molecules ]
+trichloromethane	1000
