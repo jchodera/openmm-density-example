@@ -26,7 +26,7 @@ constraints = app.HBonds
 simulation_length = 100 * unit.nanoseconds
 nsteps = int(np.ceil(simulation_length / timestep))
 nsteps_per_snapshot = 50000
-nsteps_per_density = 50
+nsteps_per_density = 500
 output_pdbfile = 'output.pdb'
 density_outfile = 'statedata.out'
 
@@ -74,7 +74,7 @@ simulation.minimizeEnergy()
 # Append reporters
 print('Creating reporters...')
 simulation.reporters.append(app.PDBReporter(output_pdbfile, nsteps_per_snapshot))
-simulation.reporters.append(app.StateDataReporter(density_outfile, nsteps_per_density, step=True, density=True))
+simulation.reporters.append(app.StateDataReporter(density_outfile, nsteps_per_density, step=True, time=True, speed=True, density=True, potentialEnergy=True, temperature=True))
 
 # Run the simulation
 print('Running the simulation for %d steps...' % nsteps)
