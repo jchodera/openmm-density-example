@@ -92,6 +92,12 @@ integrator.setConstraintTolerance(shake_tol)
 simulation = app.Simulation(top.topology, system, integrator, platform)
 simulation.context.setPositions(pdbfile.positions)
 
+# Report total system mass
+total_mass = 0.0 * unit.amu
+for index in range(system.getNumParticles()):
+    total_mass += system.getParticleMass(index)
+print('System mass: %s' % str(total_mass))
+
 # Minimize energy
 print('Minimizing energy...')
 simulation.minimizeEnergy()
@@ -99,7 +105,7 @@ simulation.minimizeEnergy()
 # Append reporters
 print('Creating reporters...')
 simulation.reporters.append(app.PDBReporter(output_pdbfile, nsteps_per_snapshot))
-simulation.reporters.append(app.StateDataReporter(density_outfile, nsteps_per_density, step=True, time=True, speed=True, density=True, systemMass=True, volume=True, potentialEnergy=True, temperature=True))
+simulation.reporters.append(app.StateDataReporter(density_outfile, nsteps_per_density, step=True, time=True, speed=True, density=True, volume=True, potentialEnergy=True, temperature=True))
 
 # Run the simulation
 print('Running the simulation for %d steps...' % nsteps)
